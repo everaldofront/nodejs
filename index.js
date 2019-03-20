@@ -14,6 +14,9 @@ app.get("/blog", function(req, res){
     res.send("Bem-vindo ao meu blog!");
 });
 
+app.get("/:cargo/:nome", function(req, res){
+    res.send("Ola "+req.params.nome);
+});
 
 app.listen(8081, function(){
     console.log("Servidor rodando na url http://localhost:8081");
