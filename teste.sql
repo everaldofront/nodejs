@@ -12,3 +12,7 @@ SELECT * usuarios WHERE nome = "Maria";
 
 /* Retorna todos usuários com idade maior ou igual a 18 */
 SELECT * usuarios WHERE idade >= 18; 
+
+
+/* Deleta todos usuários com nome igual a Bruno */
+DELETE FROM usuarios WHERE nome = "Bruno C"; 
