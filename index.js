@@ -1,22 +1,17 @@
 const express = require("express");
 const app = express();
+const handlebars = require('express-handlebars');
+const Sequelize = require('sequelize')
 
-
-app.get("/", function(req, res){
-    res.sendFile(__dirname + "/html/index.html");
-});
-
-app.get("/sobre", function(req, res){
-    res.sendFile(__dirname + "/html/sobre.html");
-});
-
-app.get("/blog", function(req, res){
-    res.send("Bem-vindo ao meu blog!");
-});
-
-app.get("/:cargo/:nome", function(req, res){
-    res.send("Ola "+req.params.nome);
-});
+// Config
+    // Template Engine
+        app.engine('handlebars', handlebars({defaultLayout: 'main'}))
+        app.set('view engine', 'handlebars')
+    // Conexão com o banco de dados MySql
+    const sequelize = new Sequelize('bdteste', 'root', 'drinfer9', {
+        host: "localhost",
+        dialect: 'mysql'
+    })
 
 app.listen(8081, function(){
     console.log("Servidor rodando na url http://localhost:8081");
