@@ -16,3 +16,6 @@ SELECT * usuarios WHERE idade >= 18;
 
 /* Deleta todos usuários com nome igual a Bruno */
 DELETE FROM usuarios WHERE nome = "Bruno C"; 
+
+/* Atualiza o nome Maria Clara para Ana Carolina */
+UPDATE usuarios SET nome = "Ana Carolina" WHERE nome = "Maria Clara"; 
