@@ -8,3 +8,47 @@ mongoose.connect("mongodb://localhost/aprendendo").then(() => {
 }).catch((err) => {
     console.log("Houve um erro ao se conectar ao mongoDB: "+err)
 })
+
+// Model - Usuários
+
+const { Schema } = mongoose;
+const UsuarioSchema = new Schema({
+
+    nome: {
+        type: String,
+        require: true
+    },
+    nsobrenome: {
+        type: String,
+        require: true
+    },
+    email: {
+        type: String,
+        require: true
+    },
+    idade: {
+        type: Number,
+        require: true
+    },
+    pais: {
+        type: String
+  
+    }
+});
+// Collection
+const Usuario = mongoose.model('usuarios', UsuarioSchema);
+
+const Usuario = new Usuario({
+    Everaldo: {
+        nome: "Everaldo",
+        sobrenome: "Santos",
+        idade: 30,
+        email: "everaldo@mail.com",
+        pais: "Brasil" 
+    }.save().then(() => {
+        console.log("Usuário cadastrado com sucesso!")
+    }).catch((err) => {
+        console.log("Houve um erro ao registrar o usuário: "+err)
+    })
+});
+
