@@ -32,23 +32,29 @@ const UsuarioSchema = new Schema({
     },
     pais: {
         type: String
-  
     }
 });
+
 // Collection
 const Usuario = mongoose.model('usuarios', UsuarioSchema);
 
-const Usuario = new Usuario({
-    Everaldo: {
+Usuario.find({}).exec((error, usuario) => {
+    if (error) {
+        return console.error(error);
+    }
+    if (usuario.length > 0) {
+        return console.log(usuario);
+    }
+    new Usuario({
         nome: "Everaldo",
         sobrenome: "Santos",
         idade: 30,
         email: "everaldo@mail.com",
-        pais: "Brasil" 
-    }.save().then(() => {
+        pais: "Brasil"
+    }).save().then(() => {
         console.log("Usuário cadastrado com sucesso!")
+        console.log(usuario);
     }).catch((err) => {
         console.log("Houve um erro ao registrar o usuário: "+err)
-    })
+    });
 });
-
