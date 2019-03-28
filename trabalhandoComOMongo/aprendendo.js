@@ -38,7 +38,6 @@ const UsuarioSchema = new Schema({
 // Collection
 const Usuario = mongoose.model('usuarios', UsuarioSchema);
 
-
 Usuario.find({}).exec((error, usuario) => {
     if (error) {
         return console.error(error);
@@ -47,11 +46,11 @@ Usuario.find({}).exec((error, usuario) => {
         return console.log(usuario);
     }
     new Usuario({
-        nome: "Jhon",
-        sobrenome: "Doe",
-        idade: 25,
-        email: "jhon@mail.com",
-        pais: "EUA"
+        nome: "Everaldo",
+        sobrenome: "Santos",
+        idade: 30,
+        email: "everaldo@mail.com",
+        pais: "Brasil"
     }).save().then(() => {
         console.log("Usuário cadastrado com sucesso!")
         console.log(usuario);
@@ -59,4 +58,3 @@ Usuario.find({}).exec((error, usuario) => {
         console.log("Houve um erro ao registrar o usuário: "+err)
     });
 });
-
