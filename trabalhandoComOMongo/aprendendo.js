@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 // Configurando o mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/aprendendo").then(() => {
+mongoose.connect("mongodb://localhost/aprendendo", {useNewUrlParser: true}).then(() => {
     useMongoClient: true
     console.log("MongoDB Conectado...")
 }).catch((err) => {
@@ -32,23 +32,31 @@ const UsuarioSchema = new Schema({
     },
     pais: {
         type: String
-  
     }
 });
+
 // Collection
 const Usuario = mongoose.model('usuarios', UsuarioSchema);
 
-const Usuario = new Usuario({
-    Everaldo: {
-        nome: "Everaldo",
-        sobrenome: "Santos",
-        idade: 30,
-        email: "everaldo@mail.com",
-        pais: "Brasil" 
-    }.save().then(() => {
+
+Usuario.find({}).exec((error, usuario) => {
+    if (error) {
+        return console.error(error);
+    }
+    if (usuario.length > 0) {
+        return console.log(usuario);
+    }
+    new Usuario({
+        nome: "Jhon",
+        sobrenome: "Doe",
+        idade: 25,
+        email: "jhon@mail.com",
+        pais: "EUA"
+    }).save().then(() => {
         console.log("Usuário cadastrado com sucesso!")
+        console.log(usuario);
     }).catch((err) => {
         console.log("Houve um erro ao registrar o usuário: "+err)
-    })
+    });
 });
 
