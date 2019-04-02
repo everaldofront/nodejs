@@ -3,7 +3,7 @@ const router = express.Router()
 const mongoose = require("mongoose")
 require("../models/Categoria")
 const Categoria = mongoose.model("categorias")
-require('../models/Postagem')
+require("../models/Postagem")
 const Postagem = mongoose.model("postagens")
 
 router.get('/', (req, res) => {
@@ -139,6 +139,47 @@ router.post("/postagens/nova", (req, res) => {
             res.redirect("/admin/postagens")
         })
     }
+})
+
+router.get("/postagens/edit/:id", (req, res) => {
+    Postagem.findOne({_id: req.params.id}).then((postagem) => {
+
+        Categoria.finf().then((categorias) => {
+            res.render("admin/editpostagens", {categorias: categorias, postagem: postagem})
+        }).catch((err) => {
+            req.flash("error_msg", "Houve um erro ao listar as categorias")
+            res.redirect("/admin/postagens")
+        })
+
+
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro ao carregar o formulário de edição")
+        res.render("admin/postagens")
+    })
+    
+})
+
+router.post("/postagem/edit", (req, res) => {
+
+    Postagem.findOne({_id: req.body.id}).then((postagem) => {
+
+        postagem.titulo = req.body.titulo
+        postagem.slug = req.body.slug
+        postagem.descricao = req.body.descricao
+        postagem.conteudo = req.body.conteudo
+        postagem.categoria = req.body.categoria
+
+        postagem.save().then(() => {
+            req.flash("success_msg", "Postagem editada com sucesso!")
+            res.redirect("/admin/postagens")
+        }).catch((err) => {
+            req.flash("error_msg", "Erro interno")
+            res.redirect("/admin/postagens")
+        })
+    }).catch((err) => {
+        req.flash("error_msg", "houve um erro ao salvar a edição")
+        res.redirect("/admin/postagens")
+    })
 })
 
 module.exports = router
