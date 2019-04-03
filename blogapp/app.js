@@ -10,6 +10,8 @@
     const flash = require("connect-flash")
     require("./models/Postagem")
     const Postagem = mongoose.model("postagens")
+    require("./models/Categoria")
+    const Categoria = mongoose.model("categorias")
 
 // Configurações
     //Sessão
@@ -60,6 +62,15 @@
                 }
             }).catch((err) => {
                 req.flash("error_msg", "Houve um erro interno")
+                res.redirect("/")
+            })
+        })
+
+        app.get("/categorias", (req, res) => {
+            Categoria.find().then((categorias) => {
+                res.render("categorias/index", {categorias: categorias})
+            }).catch((err) => {
+                req.flash("error_msg", "Houve um erro interno ao listar as categorias")
                 res.redirect("/")
             })
         })
