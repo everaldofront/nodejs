@@ -106,6 +106,8 @@
             res.send("Lista de Post")
         })
 
+app.use('/admin', admin);
+
 // Outros
     const PORT = 8089
     app.listen(PORT,() => {
