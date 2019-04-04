@@ -74,7 +74,9 @@ if(erros.length > 0){
 
 })
 
-
+router.get("/login", (req, res) => {
+    res.render("usuarios/login")
+})
 
 
 module.exports = router
